@@ -13,7 +13,7 @@ scale_color_gavi(palette = "all", discrete = TRUE, reverse = FALSE, ...)
 
 \item{reverse}{Reverses order of palette.}
 
-\item{...}{Additional arguments passed to \code{discrete_scale()} or \code{scale_fill_gradientn()}, used respectively when discrete is TRUE or FALSE}
+\item{...}{Additional arguments passed to \code{\link[ggplot2:discrete_scale]{ggplot2::discrete_scale()}} or \code{\link[ggplot2:scale_gradient]{ggplot2::scale_fill_gradientn()}}, used respectively when discrete is TRUE or FALSE}
 }
 \description{
 Color scales based on Gavi color palette
@@ -34,4 +34,6 @@ wuenic \%>\%
  ggplot(aes(year, coverage, color = coverage)) +
  geom_point() +
  scale_color_gavi(palette = "traffic", discrete = FALSE)
+
+ @md
 }

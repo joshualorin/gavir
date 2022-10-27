@@ -93,7 +93,7 @@ gavi_palette <- function(palette = "all", reverse = FALSE, ...) {
 #' @param palette A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2.
 #' @param discrete Defaults to TRUE, keep if data is discrete. If continuous, used FALSE.
 #' @param reverse Reverses order of palette.
-#' @param ... Additional arguments passed to `discrete_scale()` or `scale_fill_gradientn()`, used respectively when discrete is TRUE or FALSE
+#' @param ... Additional arguments passed to [ggplot2::discrete_scale()] or [ggplot2::scale_fill_gradientn()], used respectively when discrete is TRUE or FALSE
 #'
 #' @export
 #'
@@ -113,6 +113,8 @@ gavi_palette <- function(palette = "all", reverse = FALSE, ...) {
 #'  ggplot(aes(year, coverage, color = coverage)) +
 #'  geom_point() +
 #'  scale_color_gavi(palette = "traffic", discrete = FALSE)
+#'
+#'  @md
 scale_color_gavi <- function(palette = "all", discrete = TRUE, reverse = FALSE, ...) {
   pal <- gavi_palette(palette = palette, reverse = reverse)
 
@@ -129,7 +131,7 @@ scale_color_gavi <- function(palette = "all", discrete = TRUE, reverse = FALSE, 
 #' @param palette A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2.
 #' @param discrete Defaults to TRUE, keep if data is discrete. If continuous, used FALSE.
 #' @param reverse Reverses order of palette.
-#' @param ... Additional arguments passed to `discrete_scale()` or `scale_fill_gradientn()`, used respectively when discrete is TRUE or FALSE
+#' @param ... Additional arguments passed to [ggplot2::discrete_scale()] or [ggplot2::scale_fill_gradientn()], used respectively when discrete is TRUE or FALSE
 #'
 #' @export
 #'
