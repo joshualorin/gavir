@@ -15,3 +15,23 @@ a character vector with color names as labels and hex numbers as values
 \description{
 Gavi colors
 }
+\examples{
+# Example one - use to get hex number for gavi color
+gavi_colors("blue")
+
+# Example two - use with a geom call to provide color
+library(dplyr)
+library(ggplot2)
+wuenic \%>\%
+  filter(iso3 == "AFG" & vaccine == "dtp3") \%>\%
+  ggplot(aes(year, coverage)) +
+  geom_line(color = gavi_colors("penta"))
+
+# Example three - pair with `as_vector()` to manually set colors
+wuenic \%>\%
+  filter(iso3 == "AFG" & vaccine \%in\% c("dtp3", "mcv1")) \%>\%
+  ggplot(aes(year,coverage, color = vaccine)) +
+  geom_line() +
+  geom_point() +
+  scale_color_manual(values = as.vector(gavi_colors("penta", "mcv")))
+}
