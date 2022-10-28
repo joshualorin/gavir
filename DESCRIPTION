@@ -16,9 +16,12 @@ Suggests:
 Config/testthat/edition: 3
 Imports:
     dplyr,
+    flextable,
     ggplot2,
     grDevices,
+    hrbrthemes,
     magrittr,
+    officer,
     tibble
 Depends: 
     R (>= 2.10)
