@@ -35,5 +35,4 @@ wuenic \%>\%
  geom_point() +
  scale_color_gavi(palette = "traffic", discrete = FALSE)
 
- @md
 }

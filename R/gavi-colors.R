@@ -87,6 +87,48 @@ gavi_palette <- function(palette = "all", reverse = FALSE, ...) {
 }
 
 
+#' Plot Gavi color scales
+#'
+#' Helper function to assist in choosing a Gavi color or palette.
+#'
+#' @param pal_name defaults to all colors. Can choose from a list of available palettes:
+#' all, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2
+#'
+#' @export
+#'
+#' @examples
+#' plot_gavi_colors()
+#' plot_gavi_colors("vaccine")
+#'
+plot_gavi_colors <- function(pal_name = "all"){
+
+  desc <- n <- color <- label <- value <- NULL
+  df_cols <- gavi_pal[[pal_name]] %>%
+    tibble::enframe(name = "color", value = "hex") %>%
+    dplyr::mutate(n = dplyr::row_number()) %>%
+    dplyr::mutate(value = 1) %>%
+    dplyr::mutate(label = .5) %>%
+    dplyr::arrange(desc(n)) %>%
+    dplyr::mutate(color = factor(color, levels = color))
+
+
+  p <- ggplot2::ggplot(df_cols, ggplot2::aes(color, value, fill = color)) +
+    ggplot2::geom_bar(stat = "identity", width = 1, position = ggplot2::position_dodge(width = 1)) +
+    ggplot2::geom_text(ggplot2::aes(y = label), label = df_cols$color, color = "white") +
+    ggplot2::scale_fill_manual(values = rev(as.vector(gavi_pal[[pal_name]]))) +
+    ggplot2::coord_flip() +
+    ggplot2::labs(x = ggplot2::element_blank(), y = ggplot2::element_blank()) +
+    ggplot2::theme(legend.position = "none",
+          axis.ticks = ggplot2::element_blank(),
+          axis.text = ggplot2::element_blank(),
+          panel.background = ggplot2::element_blank())
+
+  return(p)
+
+}
+
+
+
 
 #' Color scales based on Gavi color palette
 #'
@@ -114,7 +156,6 @@ gavi_palette <- function(palette = "all", reverse = FALSE, ...) {
 #'  geom_point() +
 #'  scale_color_gavi(palette = "traffic", discrete = FALSE)
 #'
-#'  @md
 scale_color_gavi <- function(palette = "all", discrete = TRUE, reverse = FALSE, ...) {
   pal <- gavi_palette(palette = palette, reverse = reverse)
 
