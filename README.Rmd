@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-This package had a hob glob, hodge podge, mix and match set of functions to use at Gavi. This hodge podge includes some helper functions to sle ggplot and flextable
+This package is a hodge podge of helper functions that can be used at Gavi. It mainly has functions to help simplify repeat procedures, like functions to add Gavi colors to plots. 
 
 ## Installation
 
@@ -35,10 +35,14 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(gavir)
+library(tidyverse)
 ## basic example code
 
-x <- "alfa,bravo,charlie,delta"
-strsplit1(x, split = ",")
+wuenic %>%
+ filter(iso3 == "AFG" & vaccine %in% c("dtp1", "dtp3")) %>%
+ ggplot(aes(year, coverage, color = vaccine)) +
+ geom_line() +
+ scale_color_gavi()
 
 ```
 
