@@ -2,9 +2,11 @@
 
 export("%>%")
 export(gavi_colors)
+export(get_groupings)
 export(plot_gavi_colors)
 export(scale_color_gavi)
 export(scale_fill_gavi)
+export(set_root)
 export(theme_gavi)
 export(theme_gavi_table)
 importFrom(magrittr,"%>%")
