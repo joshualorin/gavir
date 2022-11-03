@@ -41,13 +41,14 @@ get_groupings <- function(version_date){
   root <- set_root()
   folders <- list.files(file.path(root, "CPMM", "Datasets", "Country Groupings"), pattern = "^20")
   max_date <- max(as.Date(paste(folders,"-01",sep="")))
+  format_date <- format(max_date, "%Y-%m")
 
   path <- file.path(root, "CPMM", "Datasets", "Country Groupings", version_date, paste0("country_groupings_", version_date, ".rds"))
   msg <- paste0("Reading in groupings file dated: ", version_date)
   error_msg1 <- c("Oops! Must set a version date!")
   error_msg2 <- paste0("Oops! A groupings file dated ", version_date," does not exist. Date must be one of the following:")
   error_msg3 <- stringr::str_wrap(paste(folders, collapse=" "),1)
-  error_msg4 <- paste0("Interesting! The groupings file you have selected is not the most recent. If this was unintentional, you can update to the most recent file, which is ", max_date)
+  error_msg4 <- paste0("Interesting! The groupings file you have selected is not the most recent. If this was unintentional, you can update to the most recent file, which is ", format_date)
 
 
   if(is.null(version_date)){
