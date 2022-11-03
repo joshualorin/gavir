@@ -22,6 +22,7 @@ Imports:
     hrbrthemes,
     magrittr,
     officer,
+    rlang,
     stringr,
     tibble
 Depends: 
