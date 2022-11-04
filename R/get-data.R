@@ -16,9 +16,9 @@
 set_root <- function(datasets = F){
 
   os <- Sys.info()["sysname"]
-  if(os == "Darwin"){user <- Sys.info()["user"]}else{Sys.getenv("USERNAME")}
+  if(os == "Darwin"){user <- Sys.info()["user"]}else{user <- Sys.getenv("USERNAME")}
   root_mac <- file.path("/Users", user, "Library", "CloudStorage", "OneDrive-SharedLibraries-Gavi", "Measurement, Evaluation and Learning - Documents")
-  root_windows <- file.path("C:", "Users", user, "Gavi", "Measurement, Evaluation and Learning - CPMM")
+  root_windows <- file.path("C:", "Users", user, "Gavi", "Measurement, Evaluation and Learning - Documents")
   if(os == "Darwin"){base_root <- root_mac}else{base_root <- root_windows}
   root_datasets <- file.path(base_root, "CPMM", "Datasets")
   if(datasets == T){root_datasets}else{base_root}
