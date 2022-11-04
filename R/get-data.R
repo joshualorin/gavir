@@ -3,6 +3,8 @@
 #'
 #' This function just sets the root directory for filepaths. It simplifies data-loading and dynamically pulls in the username to the filepath.
 #'
+#' @param datasets set to TRUE if root should be the CPMM datasets folder, otherwise leave as FALSE to have root at CPMM folder.
+#'
 #' @return a vector with the filepath root.
 #' @export
 #'
@@ -11,13 +13,15 @@
 #' # can also save as root object to re-use when loading multiple data files
 #' root <- set_root()
 
-set_root <- function(){
+set_root <- function(datasets = F){
 
   os <- Sys.info()["sysname"]
   if(os == "Darwin"){user <- Sys.info()["user"]}else{Sys.getenv("USERNAME")}
   root_mac <- file.path("/Users", user, "Library", "CloudStorage", "OneDrive-SharedLibraries-Gavi", "Measurement, Evaluation and Learning - Documents")
   root_windows <- file.path("C:", "Users", user, "Gavi", "Measurement, Evaluation and Learning - CPMM")
-  if(os == "Darwin"){root_mac}else{root_windows}
+  if(os == "Darwin"){base_root <- root_mac}else{base_root <- root_windows}
+  root_datasets <- file.path(base_root, "CPMM", "Datasets")
+  if(datasets == T){root_datasets}else{base_root}
 }
 
 

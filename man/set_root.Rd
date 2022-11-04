@@ -4,7 +4,10 @@
 \alias{set_root}
 \title{Set root for file paths}
 \usage{
-set_root()
+set_root(datasets = F)
+}
+\arguments{
+\item{datasets}{set to TRUE if root should be the CPMM datasets folder, otherwise leave as FALSE to have root at CPMM folder.}
 }
 \value{
 a vector with the filepath root.
