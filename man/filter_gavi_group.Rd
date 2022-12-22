@@ -4,7 +4,7 @@
 \alias{filter_gavi_group}
 \title{Filter by gavi groups}
 \usage{
-filter_gavi_group(data, group, group_value)
+filter_gavi_group(data, group, group_value, drop = TRUE)
 }
 \arguments{
 \item{data}{A data frame. Required to have a column labeled iso3 with iso3 country codes.}
@@ -12,6 +12,8 @@ filter_gavi_group(data, group, group_value)
 \item{group}{A group which is in groupings file.}
 
 \item{group_value}{A value or vector to filter the data by. Must correspond to values found in the group variable.}
+
+\item{drop}{defaults to TRUE, which drops the filter variable. Use FALSE if you wish to keep the filter varible.}
 }
 \value{
 A filtered data frame.
