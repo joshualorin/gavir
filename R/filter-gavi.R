@@ -14,6 +14,8 @@ utils::globalVariables(c("groupings"))
 #'
 #' @examples
 #'
+#' groupings <- get_groupings("2022-11")
+#'
 #' wuenic %>%
 #' filter_gavi_group(gavi57, 1)
 #'

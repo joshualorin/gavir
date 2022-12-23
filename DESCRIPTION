@@ -22,7 +22,10 @@ Imports:
     hrbrthemes,
     magrittr,
     officer,
+    raster,
+    readr,
     rlang,
+    sf,
     stringr,
     tibble
 Depends: 

@@ -23,6 +23,8 @@ This function takes a data frame, adds the grouping file and filters it by the s
 }
 \examples{
 
+groupings <- get_groupings("2022-11")
+
 wuenic \%>\%
 filter_gavi_group(gavi57, 1)
 

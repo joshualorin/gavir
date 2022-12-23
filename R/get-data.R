@@ -193,10 +193,162 @@ get_jrf <- function(version_date, source = "admin", guids = FALSE){
   if(guids==TRUE){filename <- paste0("jrf_subnational_GUIDS_", version_date, ".rds")}
 
   path <- file.path(root, "CPMM", "Datasets", "Coverage", "JRF", stringr::str_to_title(source), version_year, "outputs", filename)
-  msg <- paste0("Reading in JRF", stringr::str_to_title(source), "file dated: ", version_date)
+  msg <- paste0("Reading in JRF ", stringr::str_to_title(source), " file dated: ", version_date)
 
   message(msg)
   readRDS(path)
 
 }
+
+
+#' Retrieve Survey data
+#'
+#' Retrieves Survey data from the shared drive. NOTE: Only works for 2021 or later versions.
+#'
+#' @param version_date A string in the format of "yyyy-mm", corresponding to the version of the survey file you wish to load.
+#' @param source A string used to determine which survey file to load. Options are: "national" and "equity".
+#'
+#' @return a survey data frame.
+#' @export
+#'
+#' @examples
+#'
+#' get_survey("2022-08")
+#' get_survey("2022-08", source = "equity")
+#'
+
+get_survey <- function(version_date, source = "national"){
+
+  root <- set_root()
+
+  if(source=="national"){
+    filename <- paste0("survey_long_", version_date, ".rds")
+  }else if(source == "equity"){
+    filename <- paste0("survey_equity_", version_date, ".rds")
+  }
+
+  path <- file.path(root, "CPMM", "Datasets", "Coverage", "Survey", "Database", version_date, "outputs", filename)
+  msg <- paste0("Reading in ", stringr::str_to_title(source), " Survey file dated: ", version_date)
+
+  message(msg)
+  readRDS(path)
+
+}
+
+#' Retrieve IHME data
+#'
+#' Retrieves IHME data from the shared drive.
+#'
+#' @param version_date A string in the format of "yyyy-mm", corresponding to the version of the IHME file you wish to load.
+#' @param source A string used to determine which IHME file to load. Options are: "national", "subnational", "raster", and "citations".
+#' @param aggregation A string used to determine which aggregation to use when loading subnational data. Options are: "polio" or "gadm"
+#' @param vaccine A string used to detemine which vaccine to use when loading raster or citation data. Use standard vaccine format (e.g. "dtp1")
+#'
+#' @return a data frame or raster object.
+#' @export
+#'
+#' @examples
+#'
+#' #defaults load subnational file aggregated to polio shapes
+#' get_ihme("2022-12")
+#'
+#' get_ihme("2022-11", "national")
+#' get_ihme("2022-12", "raster", vaccine = "dtp1")
+#' get_ihme("2022-12", "citations", vaccine = "dtp1")
+#'
+get_ihme <- function(version_date, source = "subnational", aggregation = "polio", vaccine = NULL){
+
+ if(is.null(vaccine) & source %in% c("raster", "citations")){stop("Uh oh! You must add in vaccine in the vaccine argument")}
+
+  root <- file.path(set_root(datasets = T), "Coverage", "IHME")
+  vaccine <- stringr::str_replace(vaccine, "dtp", "dpt")
+  vaccine_no_dose <- stringr::str_sub(vaccine, end = 3)
+
+  if(source=="subnational"){
+    path <- file.path(root, "Subnational", version_date, paste0(aggregation, " aggregations"), "outputs", paste0("ihme_subnational_coverage_", aggregation, "_", version_date, ".csv"))
+  }else if(source == "national"){
+    path <- file.path(root, "National", version_date, "outputs", paste0("ihme_national_coverage_", version_date, ".csv"))
+  }else if(source == "raster"){
+    path <- file.path(root, "Subnational" , version_date, "rasters", paste0(vaccine, "_cov_mean_raked_2000_2021.tif"))
+  }else if(source == "citations"){
+    path <- file.path(root, "Subnational", version_date, "citations", paste0(vaccine_no_dose, "_coverage_estimates_survey_citations.csv"))
+  }
+
+  msg1 <- paste0("Reading in ", stringr::str_to_title(source), " IHME file dated ", version_date, " and aggregated to ", aggregation, " shapes")
+  msg2  <- paste0("Reading in ", stringr::str_to_title(source), " IHME file dated: ", version_date)
+  msg3  <- paste0("Reading in ", stringr::str_to_title(vaccine),  " ", stringr::str_to_title(source), " IHME file dated: ", version_date)
+  msg4  <- paste0("Reading in ", stringr::str_to_title(vaccine),  " Survey ", stringr::str_to_title(source), " file dated: ", version_date)
+
+  if(source == "subnational"){
+    message(msg1)
+  }else if(source == "national"){
+      message(msg2)
+  }else if(source == "raster"){
+    message(msg4)
+  }else if(source == "citations"){
+    message(msg4)
+  }
+
+  if(source!="raster"){readr::read_csv(path)}else{raster::brick(path)}
+
+}
+
+
+
+#' Retrieve Shape data
+#'
+#' Retrieves Shape data from the shared drive.
+#'
+#' @param version_date A string in the format of "yyyy-mm", corresponding to the version of the shape file you wish to load.
+#' @param source A string used to determine which shape file to load. Options are: "polio" and "gadm".
+#' @param layer A string used to determine which layer to load. Options are: "admin0", "admin1", and "admin2"
+#' @param latest Defaults to TRUE. If loading polio shapes, this ensures you only use the latest shape version for each country
+#' for a given version_date. If set to FALSE, you will load the file which has all shape file versions available for a given version date.
+#'
+#' @return A sf object
+#' @export
+#'
+#' @examples
+#'
+#' # Since defaults are set to polio, admin2, and latest shape version, you can just provide version_date:
+#' get_shapes("2022-03")
+#'
+#' # Note for GADM, no version date needed
+#' get_shapes(source = "gadm")
+#'
+#' # can also add arguments to override defaults
+#' get_shapes("2022-03", layer = "admin1", latest = FALSE)
+#'
+
+
+get_shapes <- function(version_date = NULL, source = "polio", layer = "admin2", latest = T){
+
+  if(is.null(version_date) & source == "polio"){stop("Uh oh! You must add in a date in the version_date argument")}
+
+  root <- set_root(datasets = T)
+
+  if(source=="polio" & latest == T){
+    path <- file.path(root, "Shapes", "Polio", version_date, "outputs", paste0("polio_shapes_latest_", version_date, ".gpkg"))
+  }else if(source == "polio" & latest == F){
+    path <- file.path(root, "Shapes", "Polio", version_date, "outputs", paste0("polio_shapes_", version_date, ".gpkg"))
+  }else if(source == "gadm"){
+    path <- file.path(root, "Shapes", "GADM", "gadm_shapes.gpkg")
+  }
+
+  msg1 <- paste0("Reading in ", stringr::str_to_title(source), " ", layer, " shape file dated: ", version_date)
+  msg2 <- paste0("Reading in ", stringr::str_to_upper(source), " ", layer, " shape file")
+  if(source == "polio"){message(msg1)}else{message(msg2)}
+  sf::read_sf(path, layer = layer)
+
+}
+
+
+
+
+
+
+
+
+
+
 
