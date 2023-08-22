@@ -2,7 +2,7 @@
 % Please edit documentation in R/get-data.R
 \name{get_shapes}
 \alias{get_shapes}
-\title{Retrieve IHME data}
+\title{Retrieve Shape data}
 \usage{
 get_shapes(version_date = NULL, source = "polio", layer = "admin2", latest = T)
 }
@@ -20,11 +20,12 @@ for a given version_date. If set to FALSE, you will load the file which has all 
 A sf object
 }
 \description{
-Retrieve IHME data
+Retrieves Shape data from the shared drive.
 }
 \examples{
 
-# Since defaults are set to polio, admin2, and latest shape version, you can just provide version_date:
+# Defaults are set to polio, admin2, and latest shape version,
+# So you can just provide version_date:
 get_shapes("2022-03")
 
 # Note for GADM, no version date needed

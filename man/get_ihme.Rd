@@ -18,13 +18,13 @@ get_ihme(
 
 \item{aggregation}{A string used to determine which aggregation to use when loading subnational data. Options are: "polio" or "gadm"}
 
-\item{vaccine}{A string used to detemine which vaccine to use when loading raster or citation data. Use standard vaccine format (e.g. "dtp1")}
+\item{vaccine}{A string or vector used to determine which vaccine to use when loading raster or citation data. Use standard vaccine format (e.g. "dtp1"). Required when reading in raster or citation files, otherwise leaving NULL will read in all vaccines.}
 }
 \value{
 a data frame or raster object.
 }
 \description{
-Retrieve IHME data
+Retrieves IHME data from the shared drive.
 }
 \examples{
 
@@ -33,6 +33,7 @@ get_ihme("2022-12")
 
 get_ihme("2022-11", "national")
 get_ihme("2022-12", "raster", vaccine = "dtp1")
-get_ihme("2022-12", "citations", vaccine = "dtp1")
+get_ihme("2022-12", "citations", vaccine = "dtp3")
+
 
 }

@@ -242,7 +242,7 @@ get_survey <- function(version_date, source = "national"){
 #' @param version_date A string in the format of "yyyy-mm", corresponding to the version of the IHME file you wish to load.
 #' @param source A string used to determine which IHME file to load. Options are: "national", "subnational", "raster", and "citations".
 #' @param aggregation A string used to determine which aggregation to use when loading subnational data. Options are: "polio" or "gadm"
-#' @param vaccine A string used to detemine which vaccine to use when loading raster or citation data. Use standard vaccine format (e.g. "dtp1")
+#' @param vaccine A string or vector used to determine which vaccine to use when loading raster or citation data. Use standard vaccine format (e.g. "dtp1"). Required when reading in raster or citation files, otherwise leaving NULL will read in all vaccines.
 #'
 #' @return a data frame or raster object.
 #' @export
@@ -254,42 +254,59 @@ get_survey <- function(version_date, source = "national"){
 #'
 #' get_ihme("2022-11", "national")
 #' get_ihme("2022-12", "raster", vaccine = "dtp1")
-#' get_ihme("2022-12", "citations", vaccine = "dtp1")
+#' get_ihme("2022-12", "citations", vaccine = "dtp3")
+#'
 #'
 get_ihme <- function(version_date, source = "subnational", aggregation = "polio", vaccine = NULL){
 
  if(is.null(vaccine) & source %in% c("raster", "citations")){stop("Uh oh! You must add in vaccine in the vaccine argument")}
 
   root <- file.path(set_root(datasets = T), "Coverage", "IHME")
-  vaccine <- stringr::str_replace(vaccine, "dtp", "dpt")
-  vaccine_no_dose <- stringr::str_sub(vaccine, end = 3)
+  #vax <- if(lubridate::ym(version_date)<=lubridate::ym("2022-12")){stringr::str_replace(vaccine, "dtp", "dpt")}else{vaccine}
+  vax <- stringr::str_replace(vaccine, "dtp", "dpt")
+  vax_clean <- vaccine
+  vax_citation <- if(vaccine %in% c("bcg1", "dtp1", "dtp3") & lubridate::ym(version_date)>=lubridate::ym("2023-02")){stringr::str_sub(vax, end = 3)}else{vax}
 
   if(source=="subnational"){
     path <- file.path(root, "Subnational", version_date, paste0(aggregation, " aggregations"), "outputs", paste0("ihme_subnational_coverage_", aggregation, "_", version_date, ".csv"))
   }else if(source == "national"){
     path <- file.path(root, "National", version_date, "outputs", paste0("ihme_national_coverage_", version_date, ".csv"))
   }else if(source == "raster"){
-    path <- file.path(root, "Subnational" , version_date, "rasters", paste0(vaccine, "_cov_mean_raked_2000_2021.tif"))
-  }else if(source == "citations"){
-    path <- file.path(root, "Subnational", version_date, "citations", paste0(vaccine_no_dose, "_coverage_estimates_survey_citations.csv"))
+    path <- file.path(root, "Subnational" , version_date, "rasters", paste0(vax, "_cov_mean_raked_2000_2021.tif"))
+  }else if(source == "subnational_citations"){
+    path <- file.path(root, "Subnational", version_date, "citations", paste0(vax_citation, "_coverage_estimates_survey_citations.csv"))
+  }else if(source == "national_citations"){
+    path <- file.path(root, "National", version_date, "citations", paste0(vax_citation, "_coverage_estimates_survey_citations.csv"))
   }
 
   msg1 <- paste0("Reading in ", stringr::str_to_title(source), " IHME file dated ", version_date, " and aggregated to ", aggregation, " shapes")
   msg2  <- paste0("Reading in ", stringr::str_to_title(source), " IHME file dated: ", version_date)
-  msg3  <- paste0("Reading in ", stringr::str_to_title(vaccine),  " ", stringr::str_to_title(source), " IHME file dated: ", version_date)
-  msg4  <- paste0("Reading in ", stringr::str_to_title(vaccine),  " Survey ", stringr::str_to_title(source), " file dated: ", version_date)
+  msg3  <- paste0("Reading in ", stringr::str_to_upper(vaccine),  "Raster", stringr::str_to_title(source), " IHME file dated: ", version_date)
+  msg4  <- paste0("Reading in ", stringr::str_to_upper(vax_citation),  " Survey citations (subnational model)", " file dated: ", version_date)
+  msg5  <- paste0("Reading in ", stringr::str_to_upper(vax_citation),  " Survey citations (national model)", " file dated: ", version_date)
 
   if(source == "subnational"){
     message(msg1)
   }else if(source == "national"){
       message(msg2)
   }else if(source == "raster"){
+    message(msg3)
+  }else if(source == "subnational_citations"){
     message(msg4)
-  }else if(source == "citations"){
-    message(msg4)
+  }else if(source == "national_citations"){
+    message(msg5)
   }
 
-  if(source!="raster"){readr::read_csv(path)}else{raster::brick(path)}
+  if(source %in% c("subnational", "national") & !is.null(vaccine)){
+    readr::read_csv(path) %>% dplyr::filter(vaccine %in% vax_clean)
+  }else if(source %in% c("subnational", "national") & is.null(vaccine)){
+      readr::read_csv(path)
+  }else if(source == "subnational_citations"){
+    readr::read_csv(path)
+  }else if(source == "national_citations"){
+    readr::read_csv(path)
+  }else if(source == "raster"){raster::brick(path)
+      }
 
 }
 
@@ -310,7 +327,8 @@ get_ihme <- function(version_date, source = "subnational", aggregation = "polio"
 #'
 #' @examples
 #'
-#' # Since defaults are set to polio, admin2, and latest shape version, you can just provide version_date:
+#' # Defaults are set to polio, admin2, and latest shape version,
+#' # So you can just provide version_date:
 #' get_shapes("2022-03")
 #'
 #' # Note for GADM, no version date needed

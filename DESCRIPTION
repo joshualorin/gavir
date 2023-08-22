@@ -20,6 +20,7 @@ Imports:
     ggplot2,
     grDevices,
     hrbrthemes,
+    lubridate,
     magrittr,
     officer,
     raster,
