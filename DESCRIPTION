@@ -25,6 +25,7 @@ Imports:
     officer,
     raster,
     readr,
+    readxl,
     rlang,
     sf,
     stringr,

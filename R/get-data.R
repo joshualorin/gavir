@@ -1,3 +1,4 @@
+utils::globalVariables(c("iso3", "country"))
 
 #' Set root for file paths
 #'
@@ -71,6 +72,27 @@ get_groupings <- function(version_date){
   }
 
 }
+
+
+
+
+#' Load in the synonyms file
+#'
+#' This function loads in a simplified version of the synonyms file with just iso3 and country names. Used to match country names with iso3 when no iso3 is in the data.
+#'
+#' @return a data frame with iso3 and matching country names
+#' @export
+#'
+#' @examples
+#' get_synonyms()
+
+
+get_synonyms <- function(){
+  root <- set_root()
+  path <- file.path(root, "CPMM", "Datasets", "Country Groupings", "synonyms", "country_synonyms.xlsx")
+  readxl::read_excel(path) %>% dplyr::select(iso3, country)
+
+  }
 
 
 #' Retrieve WUENIC data
@@ -359,6 +381,9 @@ get_shapes <- function(version_date = NULL, source = "polio", layer = "admin2", 
   sf::read_sf(path, layer = layer)
 
 }
+
+
+
 
 
 
