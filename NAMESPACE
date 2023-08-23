@@ -2,6 +2,7 @@
 
 export("%>%")
 export(add_gavi_group)
+export(add_iso3)
 export(filter_gavi_group)
 export(gavi_colors)
 export(get_groupings)

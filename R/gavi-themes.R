@@ -13,8 +13,6 @@ theme_gavi <- function(){
 
 
 
-
-
 #' Gavi flextable theme
 #'
 #' A theme which applies some pretty defaults to a flextable.

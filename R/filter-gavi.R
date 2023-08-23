@@ -68,3 +68,47 @@ add_gavi_group <- function(data, ...){
   if(!is.null(error)){return(error)}else{return(df)}
 
 }
+
+
+#' Add iso3 code to data
+#'
+#' This function adds the iso3 code to a data frame, using the country synonyms file to match on country.
+#'
+#' @param data A data frame. Required to have a column labeled country.
+#'
+#' @return A data frame with iso3 code.
+#' @export
+#'
+#' @examples
+#'
+#' data.frame(country = c("DRC", "Congo", "Malawi"), value = 1) %>%
+#' add_iso3()
+
+add_iso3 <- function(data){
+
+  root <- set_root()
+  path <- file.path(root, "CPMM", "Datasets", "Country Groupings", "synonyms", "country_synonyms.xlsx")
+  syn <- readxl::read_excel(path) %>% dplyr::select(iso3, country)
+
+  if("country" %in% names(data) == F){
+    message("Oops! You need a variable called 'country' in your data frame.")
+  }else if("iso3" %in% names(data) == T){
+    message("Oops! You already have a variable called 'iso3'")}
+  else{
+
+  df <- data %>%
+    dplyr::left_join(syn, by = "country") %>%
+    dplyr::select(iso3, tidyr::everything())}
+
+  nas <- df %>% dplyr::filter(is.na(iso3))
+  clist <- paste(unique(nas$country), collapse = ", ")
+  if(nrow(nas)==0){
+    message("Success! All rows matched with and iso3 code.")
+    return(df)
+  }else{
+    message(paste0("Uh oh. Not all countries matched with an iso3 code. Here are the countries with no iso3: ", clist, ". Add these to the synonyms file with the correct iso3."))
+  }
+
+}
+
+
