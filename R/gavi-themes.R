@@ -47,7 +47,7 @@ theme_gavi_table <-  function(ft){
     flextable::bold(i = 1, part = "header") %>%                          # Make header text bold
     flextable::color(part = "header", color = "black") %>%               # Make header text color black (instead of dark grey)
     flextable::hline_bottom(part = "header",
-                            border = fp_border(width = 2)) %>%           # Add a bottom border to the header
+                            border = officer::fp_border(width = 2)) %>%           # Add a bottom border to the header
     flextable::line_spacing(part = "header", space = .9) %>%             # Shrink white space between header and body
     flextable::padding(part = "header",                                  # Remove padding in header, needed for when output to ppt
                        padding.top = 0,

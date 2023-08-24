@@ -7,7 +7,7 @@
 scale_color_gavi(palette = "all", discrete = TRUE, reverse = FALSE, ...)
 }
 \arguments{
-\item{palette}{A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2.}
+\item{palette}{A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, standard, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2, map, map blues.}
 
 \item{discrete}{Defaults to TRUE, keep if data is discrete. If continuous, used FALSE.}
 

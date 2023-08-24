@@ -1,27 +1,42 @@
 # first make small table with all the gavi colors in it
 
 gavi_cols <- c(
-  `blue`       = "#005CB9",
-  `light blue` = "#00A1DF",
-  `green`      = "#95D600",
-  `grey`       = "#878786",
-  `purple`     = "#A51890",
-  `pink`       = "#CE0F69",
-  `cholera`    = "#AF5C37",
-  `hepb`       = "#D50032",
-  `hpv`        = "#F59BBB",
-  `ipv`        = "#CEDC00",
-  `ipv1`        = "#CEDC00",
-  `ipv2`        = "#CEDC00",
-  `je`         = "#B288B9",
-  `mcv`        = "#0097A9",
-  `mr`         = "#005A70",
-  `mena`       = "#009639",
-  `penta`      = "#653279",
-  `pcv`        = "#0033A0",
-  `rota`       = "#D86018",
-  `yf`         = "#EAAA00",
-  `yfv`         = "#EAAA00")
+  `org blue`       = "#005CB9",
+  `org light blue` = "#00A1DF",
+  `org green`      = "#95D600",
+  `org grey`       = "#878786",
+  `org purple`     = "#A51890",
+  `org pink`       = "#CE0F69",
+  `map blue`       = "#3D649D",
+  `map white`      = "#FFE291",
+  `map red`        = "#B03027",
+  `map blues1`     = "#C4E3D9",
+  `map blues2`     = "#385A83",
+  `blue`           = "#1A3C58",
+  `light blue`     = "#4DA9E3",
+  `purple`         = "#784AA2",
+  `green`          = "#73AA8A",
+  `pink`           = "#B57E95",
+  `yellow`         = "#F4DE7D",
+  `orange`         = "#DB9C51",
+  `red`            = "#DB655C",
+  `brown`          = "#BF9E73",
+  `turquoise`      = "#60D0D2",
+  `cholera`        = "#A25A3A",
+  `hepb`           = "#D50032",
+  `hpv`            = "#F59BBB",
+  `ipv`            = "#CEDC00",
+  `je`             = "#B288B9",
+  `mcv`            = "#0097A9",
+  `mr`             = "#005A70",
+  `mena`           = "#009639",
+  `penta`          = "#653279",
+  `pcv`            = "#0033A0",
+  `rota`           = "#D86018",
+  `yf`             = "#EAAA00",
+  `tcv`            = "#9B5638",
+  `malaria`        = "#D44237",
+  `ebola`          = "#D54D6B")
 
 #then make initial function
 #' Gavi colors
@@ -64,9 +79,10 @@ gavi_colors <- function(...) {
 # make a list of all the color palettes
 gavi_pal <- list(
   `all` = gavi_colors(),
+  `standard` = gavi_colors("blue2", "light blue2", "pink2", "green2", "yellow2", "orange2", "purple2", "red2", "turquoise2"),
   `main` = gavi_colors("blue", "light blue", "green", "grey"),
   `strategy` = gavi_colors("purple", "pink", "green", "light blue"),
-  `vaccine` = gavi_colors("cholera", "hepb", "hpv", "ipv", "je", "mcv", "mr", "mena", "penta", "pcv", "rota", "yf"),
+  `vaccine` = gavi_colors("cholera", "ebola", "hepb", "hpv", "ipv", "je", "malaria", "mcv", "mr", "mena", "penta", "pcv", "rota", "tcv", "yf"),
   `blues` = gavi_colors("blue", "light blue"),
   `purples` = gavi_colors("purple", "pink"),
   `greens` = gavi_colors("mena", "mr"),
@@ -75,10 +91,13 @@ gavi_pal <- list(
   `redgreen` = gavi_colors("hepb", "mena"),
   `traffic` = gavi_colors("hepb", "yf", "mena"),
   `misc1` = gavi_colors("penta", "pcv", "mena", "rota", "yf"),
-  `misc2` = gavi_colors("penta", "yf"))
+  `misc2` = gavi_colors("penta", "yf"),
+  `map` = gavi_colors("map blue", "map white", "map red"),
+  `map blues` = gavi_colors("map blues1", "map blues2"))
 
 # for use inside the main functions, so will not be exported (i.e. available to use for package users)
-gavi_palette <- function(palette = "all", reverse = FALSE, ...) {
+# two different functions, depending on if discrete or continuous
+palette_continuous <- function(palette = "all", reverse = FALSE, ...) {
   pal <- gavi_pal[[palette]]
 
   if (reverse) pal <- rev(pal)
@@ -86,13 +105,20 @@ gavi_palette <- function(palette = "all", reverse = FALSE, ...) {
   grDevices::colorRampPalette(pal, ...)
 }
 
+palette_discrete <- function(palette = "all", reverse = FALSE){
+  pal <- gavi_pal[[palette]]
+
+  if (reverse) pal <- rev(pal)
+
+  scales::manual_pal(pal)}
+
 
 #' Plot Gavi color scales
 #'
 #' Helper function to assist in choosing a Gavi color or palette.
 #'
 #' @param pal_name defaults to all colors. Can choose from a list of available palettes:
-#' all, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2
+#' all, standard, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2, map, map blues
 #'
 #' @export
 #'
@@ -102,19 +128,20 @@ gavi_palette <- function(palette = "all", reverse = FALSE, ...) {
 #'
 plot_gavi_colors <- function(pal_name = "all"){
 
-  desc <- n <- color <- label <- value <- NULL
+  desc <- n <- color <- label <- value <-  hex <- NULL
   df_cols <- gavi_pal[[pal_name]] %>%
     tibble::enframe(name = "color", value = "hex") %>%
     dplyr::mutate(n = dplyr::row_number()) %>%
     dplyr::mutate(value = 1) %>%
     dplyr::mutate(label = .5) %>%
+    dplyr::mutate(label_text = paste0(color, " (", hex, ")")) %>%
     dplyr::arrange(desc(n)) %>%
     dplyr::mutate(color = factor(color, levels = color))
 
 
   p <- ggplot2::ggplot(df_cols, ggplot2::aes(color, value, fill = color)) +
     ggplot2::geom_bar(stat = "identity", width = 1, position = ggplot2::position_dodge(width = 1)) +
-    ggplot2::geom_text(ggplot2::aes(y = label), label = df_cols$color, color = "white") +
+    ggplot2::geom_text(ggplot2::aes(y = label), label = df_cols$label_text, color = "white") +
     ggplot2::scale_fill_manual(values = rev(as.vector(gavi_pal[[pal_name]]))) +
     ggplot2::coord_flip() +
     ggplot2::labs(x = ggplot2::element_blank(), y = ggplot2::element_blank()) +
@@ -132,7 +159,7 @@ plot_gavi_colors <- function(pal_name = "all"){
 
 #' Color scales based on Gavi color palette
 #'
-#' @param palette A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2.
+#' @param palette A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, standard, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2, map, map blues.
 #' @param discrete Defaults to TRUE, keep if data is discrete. If continuous, used FALSE.
 #' @param reverse Reverses order of palette.
 #' @param ... Additional arguments passed to [ggplot2::discrete_scale()] or [ggplot2::scale_fill_gradientn()], used respectively when discrete is TRUE or FALSE
@@ -157,11 +184,12 @@ plot_gavi_colors <- function(pal_name = "all"){
 #'  scale_color_gavi(palette = "traffic", discrete = FALSE)
 #'
 scale_color_gavi <- function(palette = "all", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- gavi_palette(palette = palette, reverse = reverse)
-
   if (discrete) {
+    pal <- palette_discrete(palette = palette, reverse = reverse)
     ggplot2::discrete_scale("colour", paste0("gavi_", palette), palette = pal, ...)
-  } else {
+  }
+  else {
+    pal <- palette_continuous(palette = palette, reverse = reverse)
     ggplot2::scale_color_gradientn(colours = pal(256), ...)
   }
 }
@@ -169,7 +197,7 @@ scale_color_gavi <- function(palette = "all", discrete = TRUE, reverse = FALSE, 
 
 #' Fill scales based on Gavi color palette
 #'
-#' @param palette A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2.
+#' @param palette A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, standard, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2, map, map blues.
 #' @param discrete Defaults to TRUE, keep if data is discrete. If continuous, used FALSE.
 #' @param reverse Reverses order of palette.
 #' @param ... Additional arguments passed to [ggplot2::discrete_scale()] or [ggplot2::scale_fill_gradientn()], used respectively when discrete is TRUE or FALSE
@@ -194,14 +222,17 @@ scale_color_gavi <- function(palette = "all", discrete = TRUE, reverse = FALSE, 
 #'  scale_fill_gavi(palette = "greens", reverse = TRUE)
 
 scale_fill_gavi <- function(palette = "all", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- gavi_palette(palette = palette, reverse = reverse)
-
   if (discrete) {
+    pal <- palette_discrete(palette = palette, reverse = reverse)
     ggplot2::discrete_scale("fill", paste0("gavi_", palette), palette = pal, ...)
-  } else {
+  }
+  else {
+    pal <- palette_continuous(palette = palette, reverse = reverse)
     ggplot2::scale_fill_gradientn(colours = pal(256), ...)
   }
 }
+
+
 
 
 

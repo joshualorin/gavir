@@ -27,6 +27,7 @@ Imports:
     readr,
     readxl,
     rlang,
+    scales,
     sf,
     stringr,
     tibble,

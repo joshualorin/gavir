@@ -8,7 +8,7 @@ plot_gavi_colors(pal_name = "all")
 }
 \arguments{
 \item{pal_name}{defaults to all colors. Can choose from a list of available palettes:
-all, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2}
+all, standard, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2, map, map blues}
 }
 \description{
 Helper function to assist in choosing a Gavi color or palette.
