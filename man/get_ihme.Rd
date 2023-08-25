@@ -8,17 +8,23 @@ get_ihme(
   version_date,
   source = "subnational",
   aggregation = "polio",
-  vaccine = NULL
+  vaccine = NULL,
+  with_admin = F,
+  with_admin_date = NULL
 )
 }
 \arguments{
 \item{version_date}{A string in the format of "yyyy-mm", corresponding to the version of the IHME file you wish to load.}
 
-\item{source}{A string used to determine which IHME file to load. Options are: "national", "subnational", "raster", and "citations".}
+\item{source}{A string used to determine which IHME file to load. Options are: "national", "subnational", "raster", "national_citations", and "subnational_citations".}
 
 \item{aggregation}{A string used to determine which aggregation to use when loading subnational data. Options are: "polio" or "gadm"}
 
 \item{vaccine}{A string or vector used to determine which vaccine to use when loading raster or citation data. Use standard vaccine format (e.g. "dtp1"). Required when reading in raster or citation files, otherwise leaving NULL will read in all vaccines.}
+
+\item{with_admin}{if TRUE, loads a version of the subnational file which includes admin data.}
+
+\item{with_admin_date}{if NULL, loads the latest ihme/admin subnational file. A string in the format of "yyyy-mm-dd" can also be used to specify exact version of the file.}
 }
 \value{
 a data frame or raster object.

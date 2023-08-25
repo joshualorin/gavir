@@ -262,9 +262,11 @@ get_survey <- function(version_date, source = "national"){
 #' Retrieves IHME data from the shared drive.
 #'
 #' @param version_date A string in the format of "yyyy-mm", corresponding to the version of the IHME file you wish to load.
-#' @param source A string used to determine which IHME file to load. Options are: "national", "subnational", "raster", and "citations".
+#' @param source A string used to determine which IHME file to load. Options are: "national", "subnational", "raster", "national_citations", and "subnational_citations".
 #' @param aggregation A string used to determine which aggregation to use when loading subnational data. Options are: "polio" or "gadm"
 #' @param vaccine A string or vector used to determine which vaccine to use when loading raster or citation data. Use standard vaccine format (e.g. "dtp1"). Required when reading in raster or citation files, otherwise leaving NULL will read in all vaccines.
+#' @param with_admin if TRUE, loads a version of the subnational file which includes admin data.
+#' @param with_admin_date if NULL, loads the latest ihme/admin subnational file. A string in the format of "yyyy-mm-dd" can also be used to specify exact version of the file.
 #'
 #' @return a data frame or raster object.
 #' @export
@@ -279,18 +281,27 @@ get_survey <- function(version_date, source = "national"){
 #' get_ihme("2022-12", "citations", vaccine = "dtp3")
 #'
 #'
-get_ihme <- function(version_date, source = "subnational", aggregation = "polio", vaccine = NULL){
+get_ihme <- function(version_date, source = "subnational", aggregation = "polio", vaccine = NULL, with_admin = F, with_admin_date = NULL){
 
- if(is.null(vaccine) & source %in% c("raster", "citations")){stop("Uh oh! You must add in vaccine in the vaccine argument")}
+ if(is.null(vaccine) & source %in% c("raster", "subnational_citations", "national_citations")){stop("Uh oh! You must add in vaccine in the vaccine argument")}
+ if(with_admin==F & !is.null(with_admin_date)){stop("Uh oh! with_admin must be set to TRUE if you wish to use a specific file date in with_admin_date")}
 
   root <- file.path(set_root(datasets = T), "Coverage", "IHME")
   #vax <- if(lubridate::ym(version_date)<=lubridate::ym("2022-12")){stringr::str_replace(vaccine, "dtp", "dpt")}else{vaccine}
   vax <- stringr::str_replace(vaccine, "dtp", "dpt")
   vax_clean <- vaccine
-  vax_citation <- if(vaccine %in% c("bcg1", "dtp1", "dtp3") & lubridate::ym(version_date)>=lubridate::ym("2023-02")){stringr::str_sub(vax, end = 3)}else{vax}
+  vax_citation <- if(is.null(vaccine)){NULL}else if(vaccine %in% c("bcg1", "dtp1", "dtp3") & lubridate::ym(version_date)>=lubridate::ym("2023-02")){stringr::str_sub(vax, end = 3)}else{vax}
 
-  if(source=="subnational"){
+  # section for determining date of ihme/admin file
+  root <- file.path(set_root(datasets = T), "Coverage", "IHME")
+  files <- list.files(file.path(root, "Subnational", version_date, paste0(aggregation, " aggregations"), "outputs"))
+  max_date <- max(lubridate::ymd(stringr::str_sub(stringr::str_subset(files, "GUID"), 28, 37)))
+  admin_date <- if(is.null(with_admin_date)){max_date}else{with_admin_date}
+
+  if(source=="subnational" & with_admin == F){
     path <- file.path(root, "Subnational", version_date, paste0(aggregation, " aggregations"), "outputs", paste0("ihme_subnational_coverage_", aggregation, "_", version_date, ".csv"))
+  }else if(source == "subnational" & with_admin == T){
+    path <- file.path(root, "Subnational", version_date, paste0(aggregation, " aggregations"), "outputs", paste0("ihme_jrf_subnational_GUIDS_", admin_date, ".rds"))
   }else if(source == "national"){
     path <- file.path(root, "National", version_date, "outputs", paste0("ihme_national_coverage_", version_date, ".csv"))
   }else if(source == "raster"){
@@ -302,27 +313,34 @@ get_ihme <- function(version_date, source = "subnational", aggregation = "polio"
   }
 
   msg1 <- paste0("Reading in ", stringr::str_to_title(source), " IHME file dated ", version_date, " and aggregated to ", aggregation, " shapes")
-  msg2  <- paste0("Reading in ", stringr::str_to_title(source), " IHME file dated: ", version_date)
-  msg3  <- paste0("Reading in ", stringr::str_to_upper(vaccine),  "Raster", stringr::str_to_title(source), " IHME file dated: ", version_date)
-  msg4  <- paste0("Reading in ", stringr::str_to_upper(vax_citation),  " Survey citations (subnational model)", " file dated: ", version_date)
-  msg5  <- paste0("Reading in ", stringr::str_to_upper(vax_citation),  " Survey citations (national model)", " file dated: ", version_date)
+  msg2 <- paste0("Reading in ", stringr::str_to_title(source), " IHME and Admin file dated ", admin_date, " and aggregated to ", aggregation, " shapes")
+  msg3 <- paste0("Reading in ", stringr::str_to_title(source), " IHME file dated: ", version_date)
+  msg4 <- paste0("Reading in ", stringr::str_to_upper(vaccine),  "Raster", stringr::str_to_title(source), " IHME file dated: ", version_date)
+  msg5 <- paste0("Reading in ", stringr::str_to_upper(vax_citation),  " Survey citations (subnational model)", " file dated: ", version_date)
+  msg6 <- paste0("Reading in ", stringr::str_to_upper(vax_citation),  " Survey citations (national model)", " file dated: ", version_date)
 
-  if(source == "subnational"){
+  if(source == "subnational" & with_admin == F){
     message(msg1)
-  }else if(source == "national"){
+  }else if(source == "subnational" & with_admin == T){
       message(msg2)
+  }else if(source == "national"){
+      message(msg3)
   }else if(source == "raster"){
-    message(msg3)
-  }else if(source == "subnational_citations"){
     message(msg4)
-  }else if(source == "national_citations"){
+  }else if(source == "subnational_citations"){
     message(msg5)
+  }else if(source == "national_citations"){
+    message(msg6)
   }
 
-  if(source %in% c("subnational", "national") & !is.null(vaccine)){
+  if(source %in% c("subnational", "national") & !is.null(vaccine) & with_admin == F){
     readr::read_csv(path) %>% dplyr::filter(vaccine %in% vax_clean)
-  }else if(source %in% c("subnational", "national") & is.null(vaccine)){
+  }else if(source %in% c("subnational", "national") & is.null(vaccine) & with_admin == F){
       readr::read_csv(path)
+  }else if(source %in% c("subnational") & !is.null(vaccine) & with_admin == T){
+      readRDS(path) %>% dplyr::filter(vaccine %in% vax_clean)
+  }else if(source %in% c("subnational") & is.null(vaccine) & with_admin == T){
+      readRDS(path)
   }else if(source == "subnational_citations"){
     readr::read_csv(path)
   }else if(source == "national_citations"){
@@ -331,7 +349,6 @@ get_ihme <- function(version_date, source = "subnational", aggregation = "polio"
       }
 
 }
-
 
 
 #' Retrieve Shape data
@@ -383,6 +400,52 @@ get_shapes <- function(version_date = NULL, source = "polio", layer = "admin2", 
 }
 
 
+
+#' Retreive Support data
+#'
+#' Retreives Support data from the shared drive.
+#'
+#' @param version_date A string in the format of "yyyy-mm", corresponding to the version of the support file you wish to load.
+#'
+#' @return a data frame of country-vaccine-year support
+#' @export
+#'
+#' @examples
+#' get_support("2023-08")
+#'
+
+
+get_support <- function(version_date){
+
+  root <- set_root()
+  folders <- list.files(file.path(root, "CPMM", "Datasets", "Support"), pattern = "^20")
+  max_date <- max(as.Date(paste(folders,"-01",sep="")))
+  format_date <- format(max_date, "%Y-%m")
+
+  filename <- paste0("support_", version_date, ".rds")
+  path <- file.path(root, "CPMM", "Datasets", "Support", version_date, filename)
+  msg <- paste0("Reading in Gavi support file dated: ", version_date)
+  error_msg1 <- c("Oops! Must set a version date!")
+  error_msg2 <- paste0("Oops! A support file dated ", version_date," does not exist. Date must be one of the following:")
+  error_msg3 <- stringr::str_wrap(paste(folders, collapse=" "),1)
+  error_msg4 <- paste0("Interesting! The support file you have selected is not the most recent. If this was unintentional, you can update to the most recent file, which is ", format_date)
+
+
+  if(is.null(version_date)){
+    message(error_msg1)
+  }else if(!version_date %in% folders){
+    message(error_msg2)
+    message(error_msg3)
+  }else if(as.Date(paste(version_date,"-01",sep="")) != max_date){
+    message(msg)
+    message(error_msg4)
+    readRDS(path)
+  }else{
+    message(msg)
+    readRDS(path)
+  }
+
+}
 
 
 

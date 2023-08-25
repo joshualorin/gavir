@@ -15,7 +15,7 @@ theme_gavi <- function(){
 
 #' Gavi flextable theme
 #'
-#' A theme which applies some pretty defaults to a flextable.
+#' A theme which applies some pretty defaults to a flextable. This makes numerous changes, including: Making header larger, bold, and black, adds a border between the header and body, left aligns first body column and centers all others, adds border between body and footer, makes footer text smaller and lighter, and then removes padding between rows.
 #'
 #' @param ft A flextable object.
 #'
