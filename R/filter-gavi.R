@@ -103,7 +103,7 @@ add_iso3 <- function(data){
   nas <- df %>% dplyr::filter(is.na(iso3))
   clist <- paste(unique(nas$country), collapse = ", ")
   if(nrow(nas)==0){
-    message("Success! All rows matched with and iso3 code.")
+    message("Success! All rows matched with an iso3 code.")
     return(df)
   }else{
     message(paste0("Uh oh. Not all countries matched with an iso3 code. Here are the countries with no iso3: ", clist, ". Add these to the synonyms file with the correct iso3."))
