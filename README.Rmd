@@ -45,7 +45,6 @@ get_ihme("2023-02", source = "subnational", vaccine = "dtp3")
 
 ```
 
-
 `theme_*()` and `scale_*()` functions allow for standard gavi formatting and colors:
 
 ```{r plot}
