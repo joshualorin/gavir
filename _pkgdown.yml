@@ -2,7 +2,6 @@ url: ~
 template:
   bootstrap: 5
 
-<<<<<<< HEAD
 reference:
 - title: Load data
 - contents:
@@ -22,7 +21,5 @@ reference:
 - title: Data
 - contents:
   - wuenic
-=======
->>>>>>> master
 
 
