@@ -2,3 +2,22 @@ url: https://joshualorin.github.io/gavir/
 template:
   bootstrap: 5
 
+reference:
+- title: Load data
+- contents:
+  - starts_with("get_")
+- title: Themes and palettes
+- contents:
+  - starts_with("scale_")
+  - gavi_colors
+  - plot_gavi_colors
+  - starts_with("theme_")
+- title: Helper functions
+- contents:
+  - add_gavi_group
+  - filter_gavi_group
+  - add_iso3
+  - set_root
+- title: Data
+- contents:
+  - wuenic
