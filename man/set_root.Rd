@@ -17,6 +17,7 @@ This function just sets the root directory for filepaths. It simplifies data-loa
 }
 \examples{
 set_root()
+
 # can also save as root object to re-use when loading multiple data files
 root <- set_root()
 }

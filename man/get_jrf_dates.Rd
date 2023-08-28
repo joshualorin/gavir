@@ -22,7 +22,9 @@ This is a helper function to look at dates for the JRF files.
 \examples{
 
 get_jrf_dates()
+
 get_jrf_dates("official")
+
 get_jrf_dates("subnational", guids = TRUE)
 
 }

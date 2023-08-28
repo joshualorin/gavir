@@ -20,5 +20,6 @@ Retrieves WUENIC data from the shared drive. NOTE: Only works for 2021 or later 
 \examples{
 
 get_wuenic("2022-07")
+
 get_wuenic("2021-07", "old_new")
 }

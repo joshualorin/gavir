@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-This package is a hodge podge of helper functions that can be used at Gavi. It mainly has functions to help simplify repeat procedures, like functions to add Gavi colors to plots. 
+This package is a suite of helper functions that can be used at Gavi. It mainly has functions to help simplify repeat procedures, like loading common data, gavi specific colors and themes for plots and tables, and functions which add and filter common varibles like country groupings and iso3 codes. 
 
 ## Installation
 
@@ -29,20 +29,34 @@ You can install the development version of gavir from [GitHub](https://github.co
 devtools::install_github("joshualorin/gavir")
 ```
 
-## Example
+## Examples 
 
-This is a basic example which shows you how to solve a common problem:
+You can use the `get_*()` functions to load data:
 
-```{r example}
+```{r load_data}
 library(gavir)
-library(tidyverse)
-## basic example code
+library(tidyverse, warn.conflicts = F, verbose = F)
+
+# all functions require a version date
+get_groupings("2023-07")
+
+# and most have additional parameters you can fiddle with
+get_ihme("2023-02", source = "subnational", vaccine = "dtp3")
+
+```
+
+
+`theme_*()` and `scale_*()` functions allow for standard gavi formatting and colors:
+
+```{r plot}
 
 wuenic %>%
  filter(iso3 == "AFG" & vaccine %in% c("dtp1", "dtp3")) %>%
  ggplot(aes(year, coverage, color = vaccine)) +
  geom_line() +
- scale_color_gavi()
+ geom_point() +
+ scale_color_gavi() + 
+ theme_gavi()
 
 ```
 

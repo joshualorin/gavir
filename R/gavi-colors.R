@@ -79,15 +79,15 @@ gavi_colors <- function(...) {
 # make a list of all the color palettes
 gavi_pal <- list(
   `all` = gavi_colors(),
-  `standard` = gavi_colors("blue2", "light blue2", "pink2", "green2", "yellow2", "orange2", "purple2", "red2", "turquoise2"),
-  `main` = gavi_colors("blue", "light blue", "green", "grey"),
-  `strategy` = gavi_colors("purple", "pink", "green", "light blue"),
+  `standard` = gavi_colors("blue", "light blue", "pink", "green", "yellow", "orange", "purple", "red", "turquoise"),
+  `main` = gavi_colors("org blue", "org light blue", "org green", "org grey"),
+  `strategy` = gavi_colors("org purple", "org pink", "org green", "org light blue"),
   `vaccine` = gavi_colors("cholera", "ebola", "hepb", "hpv", "ipv", "je", "malaria", "mcv", "mr", "mena", "penta", "pcv", "rota", "tcv", "yf"),
-  `blues` = gavi_colors("blue", "light blue"),
-  `purples` = gavi_colors("purple", "pink"),
+  `blues` = gavi_colors("org blue", "org light blue"),
+  `purples` = gavi_colors("org purple", "org pink"),
   `greens` = gavi_colors("mena", "mr"),
   `greens3` = gavi_colors("mena", "mr", "mcv"),
-  `bluegreen` = gavi_colors("light blue", "green"),
+  `bluegreen` = gavi_colors("org light blue", "org green"),
   `redgreen` = gavi_colors("hepb", "mena"),
   `traffic` = gavi_colors("hepb", "yf", "mena"),
   `misc1` = gavi_colors("penta", "pcv", "mena", "rota", "yf"),
@@ -183,7 +183,7 @@ plot_gavi_colors <- function(pal_name = "all"){
 #'  geom_point() +
 #'  scale_color_gavi(palette = "traffic", discrete = FALSE)
 #'
-scale_color_gavi <- function(palette = "all", discrete = TRUE, reverse = FALSE, ...) {
+scale_color_gavi <- function(palette = "standard", discrete = TRUE, reverse = FALSE, ...) {
   if (discrete) {
     pal <- palette_discrete(palette = palette, reverse = reverse)
     ggplot2::discrete_scale("colour", paste0("gavi_", palette), palette = pal, ...)
@@ -221,7 +221,7 @@ scale_color_gavi <- function(palette = "all", discrete = TRUE, reverse = FALSE, 
 #'  geom_bar(stat = "identity") +
 #'  scale_fill_gavi(palette = "greens", reverse = TRUE)
 
-scale_fill_gavi <- function(palette = "all", discrete = TRUE, reverse = FALSE, ...) {
+scale_fill_gavi <- function(palette = "standard", discrete = TRUE, reverse = FALSE, ...) {
   if (discrete) {
     pal <- palette_discrete(palette = palette, reverse = reverse)
     ggplot2::discrete_scale("fill", paste0("gavi_", palette), palette = pal, ...)

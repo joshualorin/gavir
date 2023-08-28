@@ -11,6 +11,7 @@ utils::globalVariables(c("iso3", "country"))
 #'
 #' @examples
 #' set_root()
+#'
 #' # can also save as root object to re-use when loading multiple data files
 #' root <- set_root()
 
@@ -38,6 +39,7 @@ set_root <- function(datasets = F){
 #'
 #' @examples
 #' get_groupings("2022-07")
+#'
 #' # can also save as object to re-use
 #' groupings <- get_groupings("2022-07")
 #'
@@ -108,6 +110,7 @@ get_synonyms <- function(){
 #' @examples
 #'
 #' get_wuenic("2022-07")
+#'
 #' get_wuenic("2021-07", "old_new")
 
 get_wuenic <- function(version_date, format = "normal"){
@@ -139,7 +142,9 @@ get_wuenic <- function(version_date, format = "normal"){
 #' @examples
 #'
 #' get_jrf_dates()
+#'
 #' get_jrf_dates("official")
+#'
 #' get_jrf_dates("subnational", guids = TRUE)
 #'
 #' @importFrom rlang .data
@@ -193,7 +198,9 @@ get_jrf_dates <- function(source = "admin", latest = FALSE, guids = FALSE){
 #' @examples
 #'
 #' get_jrf("2022-08-03")
+#'
 #' get_jrf("2022-09-02", "subnational", guids = TRUE)
+#'
 #' # to dynamically always pull most recent file
 #' get_jrf(get_jrf_dates("official", latest = TRUE), "official")
 
@@ -236,6 +243,7 @@ get_jrf <- function(version_date, source = "admin", guids = FALSE){
 #' @examples
 #'
 #' get_survey("2022-08")
+#'
 #' get_survey("2022-08", source = "equity")
 #'
 
@@ -277,7 +285,9 @@ get_survey <- function(version_date, source = "national"){
 #' get_ihme("2022-12")
 #'
 #' get_ihme("2022-11", "national")
+#'
 #' get_ihme("2022-12", "raster", vaccine = "dtp1")
+#'
 #' get_ihme("2022-12", "citations", vaccine = "dtp3")
 #'
 #'

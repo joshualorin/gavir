@@ -20,6 +20,7 @@ Retrieves Survey data from the shared drive. NOTE: Only works for 2021 or later 
 \examples{
 
 get_survey("2022-08")
+
 get_survey("2022-08", source = "equity")
 
 }

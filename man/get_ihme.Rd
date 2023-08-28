@@ -38,7 +38,9 @@ Retrieves IHME data from the shared drive.
 get_ihme("2022-12")
 
 get_ihme("2022-11", "national")
+
 get_ihme("2022-12", "raster", vaccine = "dtp1")
+
 get_ihme("2022-12", "citations", vaccine = "dtp3")
 
 

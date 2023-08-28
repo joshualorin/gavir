@@ -17,6 +17,7 @@ This function loads in the country groupings file into your current environment
 }
 \examples{
 get_groupings("2022-07")
+
 # can also save as object to re-use
 groupings <- get_groupings("2022-07")
 

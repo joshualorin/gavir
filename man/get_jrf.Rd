@@ -22,7 +22,9 @@ Retrieves JRF data from the shared drive. NOTE: Only works for 2021 or later ver
 \examples{
 
 get_jrf("2022-08-03")
+
 get_jrf("2022-09-02", "subnational", guids = TRUE)
+
 # to dynamically always pull most recent file
 get_jrf(get_jrf_dates("official", latest = TRUE), "official")
 }

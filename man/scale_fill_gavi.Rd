@@ -4,7 +4,7 @@
 \alias{scale_fill_gavi}
 \title{Fill scales based on Gavi color palette}
 \usage{
-scale_fill_gavi(palette = "all", discrete = TRUE, reverse = FALSE, ...)
+scale_fill_gavi(palette = "standard", discrete = TRUE, reverse = FALSE, ...)
 }
 \arguments{
 \item{palette}{A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, standard, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2, map, map blues.}
