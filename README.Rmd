@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-This package is a suite of helper functions that can be used at Gavi. It mainly has functions to help simplify repeat procedures, like loading common data, gavi specific colors and themes for plots and tables, and functions which add and filter common varibles like country groupings and iso3 codes. 
+This package is a suite of helper functions that can be used at Gavi. It has functions to help simplify repeat procedures, like loading common data, gavi specific colors and themes for plots and tables, and functions which add and filter common varibles like country groupings and iso3 codes. 
 
 ## Installation
 

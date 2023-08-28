@@ -5,8 +5,8 @@ Authors@R:
     person("Joshua", "Lorin", , "jlorin@gavi.org", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-6441-2555"))
 Description: This package is a suite of helper functions that can be used at Gavi. It mainly has functions 
-to help simplify repeat procedures, like loading common data, gavi specific colors and themes for plots and tables, 
-and functions which add and filter common varibles like country groupings and iso3 codes.
+  to help simplify repeat procedures, like loading common data, gavi specific colors and themes for plots and tables, 
+  and functions which add and filter common varibles like country groupings and iso3 codes.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
