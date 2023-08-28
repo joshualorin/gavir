@@ -28,10 +28,10 @@ wuenic \%>\%
  geom_bar(stat = "identity") +
  scale_fill_gavi(palette = "main", reverse = TRUE)
 
-# Example two - the "greens" palette has only two colors, so palette interpolates shades
+# Example two - the "misc1" palette has five colors, so palette takes first four shades
 wuenic \%>\%
  filter(iso3 == "AFG" & year == 2021) \%>\%
  ggplot(aes(vaccine, coverage, fill = vaccine)) +
  geom_bar(stat = "identity") +
- scale_fill_gavi(palette = "greens", reverse = TRUE)
+ scale_fill_gavi(palette = "misc1", reverse = TRUE)
 }
