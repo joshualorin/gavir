@@ -1,11 +1,9 @@
 url: https://joshualorin.github.io/gavir/
 template:
   bootstrap: 5
-
 reference:
 - title: Load data
-- contents:
-  - starts_with("get_")
+- contents: starts_with("get_")
 - title: Themes and palettes
 - contents:
   - starts_with("scale_")
@@ -19,5 +17,5 @@ reference:
   - add_iso3
   - set_root
 - title: Data
-- contents:
-  - wuenic
+- contents: wuenic
+
