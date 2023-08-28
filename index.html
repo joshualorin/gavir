@@ -89,10 +89,10 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://joshualorin.github.io/gavir/">gavir</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">F</span>, verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──</span></span>
-<span><span class="co">#&gt; ✔ ggplot2 3.4.2      ✔ purrr   0.3.4 </span></span>
-<span><span class="co">#&gt; ✔ tibble  3.1.8      ✔ dplyr   1.0.10</span></span>
-<span><span class="co">#&gt; ✔ tidyr   1.2.0      ✔ stringr 1.5.0 </span></span>
-<span><span class="co">#&gt; ✔ readr   2.1.3      ✔ forcats 0.5.2 </span></span>
+<span><span class="co">#&gt; ✔ ggplot2 3.4.3     ✔ purrr   1.0.2</span></span>
+<span><span class="co">#&gt; ✔ tibble  3.2.1     ✔ dplyr   1.1.2</span></span>
+<span><span class="co">#&gt; ✔ tidyr   1.3.0     ✔ stringr 1.5.0</span></span>
+<span><span class="co">#&gt; ✔ readr   2.1.4     ✔ forcats 0.5.2</span></span>
 <span><span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
 <span><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
 <span><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span>
@@ -102,25 +102,25 @@
 <span><span class="co">#&gt; Reading in groupings file dated: 2023-07</span></span>
 <span><span class="co">#&gt; Interesting! The groupings file you have selected is not the most recent. If this was unintentional, you can update to the most recent file, which is 2023-08</span></span>
 <span><span class="co">#&gt; # A tibble: 196 × 61</span></span>
-<span><span class="co">#&gt;    iso3  iso3_num iso2  country count…¹ lang  global gavi77 gavi73 gavi72 gavi68</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 AFG          4 AF    Afghan… Afghan… eng        1      1      1      1      1</span></span>
-<span><span class="co">#&gt;  2 AGO         24 AO    Angola  Angola  eng        1      1      1      1      1</span></span>
-<span><span class="co">#&gt;  3 ALB          8 AL    Albania Albania eng        1      1      0      0      0</span></span>
-<span><span class="co">#&gt;  4 AND         20 AD    Andorra Andorra eng        1      0      0      0      0</span></span>
-<span><span class="co">#&gt;  5 ARE        784 AE    United… United… eng        1      0      0      0      0</span></span>
-<span><span class="co">#&gt;  6 ARG         32 AR    Argent… Argent… eng        1      0      0      0      0</span></span>
-<span><span class="co">#&gt;  7 ARM         51 AM    Armenia Armenia eng        1      1      1      1      1</span></span>
-<span><span class="co">#&gt;  8 ATG         28 AG    Antigu… Antigu… eng        1      0      0      0      0</span></span>
-<span><span class="co">#&gt;  9 AUS         36 AU    Austra… Austra… eng        1      0      0      0      0</span></span>
-<span><span class="co">#&gt; 10 AUT         40 AT    Austria Austria eng        1      0      0      0      0</span></span>
-<span><span class="co">#&gt; # … with 186 more rows, 50 more variables: gavi57 &lt;dbl&gt;, gavi55 &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   mics45 &lt;dbl&gt;, dov96 &lt;dbl&gt;, vimc112 &lt;dbl&gt;, who_region &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   gavi_region &lt;chr&gt;, gavi_region_short &lt;chr&gt;, pef_type &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   continental_africa &lt;dbl&gt;, francophone &lt;chr&gt;, indo_pacific &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   regional_je &lt;dbl&gt;, regional_mena &lt;dbl&gt;, regional_yfv_2016 &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   regional_yfv_2020 &lt;dbl&gt;, regional_ipv &lt;dbl&gt;, segments_2020 &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   segments_2021 &lt;chr&gt;, segments_2022 &lt;chr&gt;, segments_2023 &lt;chr&gt;, …</span></span>
+<span><span class="co">#&gt;    iso3  iso3_num iso2  country  country_short lang  global gavi77 gavi73 gavi72</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 AFG          4 AF    Afghani… Afghanistan   eng        1      1      1      1</span></span>
+<span><span class="co">#&gt;  2 AGO         24 AO    Angola   Angola        eng        1      1      1      1</span></span>
+<span><span class="co">#&gt;  3 ALB          8 AL    Albania  Albania       eng        1      1      0      0</span></span>
+<span><span class="co">#&gt;  4 AND         20 AD    Andorra  Andorra       eng        1      0      0      0</span></span>
+<span><span class="co">#&gt;  5 ARE        784 AE    United … United Arab … eng        1      0      0      0</span></span>
+<span><span class="co">#&gt;  6 ARG         32 AR    Argenti… Argentina     eng        1      0      0      0</span></span>
+<span><span class="co">#&gt;  7 ARM         51 AM    Armenia  Armenia       eng        1      1      1      1</span></span>
+<span><span class="co">#&gt;  8 ATG         28 AG    Antigua… Antigua and … eng        1      0      0      0</span></span>
+<span><span class="co">#&gt;  9 AUS         36 AU    Austral… Australia     eng        1      0      0      0</span></span>
+<span><span class="co">#&gt; 10 AUT         40 AT    Austria  Austria       eng        1      0      0      0</span></span>
+<span><span class="co">#&gt; # ℹ 186 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 51 more variables: gavi68 &lt;dbl&gt;, gavi57 &lt;dbl&gt;, gavi55 &lt;dbl&gt;, mics45 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   dov96 &lt;dbl&gt;, vimc112 &lt;dbl&gt;, who_region &lt;chr&gt;, gavi_region &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   gavi_region_short &lt;chr&gt;, pef_type &lt;chr&gt;, continental_africa &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   francophone &lt;chr&gt;, indo_pacific &lt;dbl&gt;, regional_je &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   regional_mena &lt;dbl&gt;, regional_yfv_2016 &lt;dbl&gt;, regional_yfv_2020 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   regional_ipv &lt;dbl&gt;, segments_2020 &lt;chr&gt;, segments_2021 &lt;chr&gt;, …</span></span>
 <span></span>
 <span><span class="co"># and most have additional parameters you can fiddle with</span></span>
 <span><span class="fu"><a href="reference/get_ihme.html">get_ihme</a></span><span class="op">(</span><span class="st">"2023-02"</span>, source <span class="op">=</span> <span class="st">"subnational"</span>, vaccine <span class="op">=</span> <span class="st">"dtp3"</span><span class="op">)</span></span>
@@ -131,23 +131,23 @@
 <span><span class="co">#&gt; dbl (9): year, coverage, pu1_final, unvax_total, pct_unvax, upper, lower, pu...</span></span>
 <span><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
 <span><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
-<span><span class="co">#&gt; # A tibble: 1,217,964 × 17</span></span>
-<span><span class="co">#&gt;    iso3  admin2     admin…¹  year vaccine cover…² pu1_f…³ unvax…⁴ pct_u…⁵ admin1</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; </span></span>
-<span><span class="co">#&gt;  1 ETH   MAO KOMO … {00061…  2000 dtp1      0.293   1723.   1218.   0.707 BENES…</span></span>
-<span><span class="co">#&gt;  2 ETH   MAO KOMO … {00061…  2001 dtp1      0.430   1760.   1003.   0.570 BENES…</span></span>
-<span><span class="co">#&gt;  3 ETH   MAO KOMO … {00061…  2002 dtp1      0.413   1792.   1052.   0.587 BENES…</span></span>
-<span><span class="co">#&gt;  4 ETH   MAO KOMO … {00061…  2003 dtp1      0.377   1807.   1126.   0.623 BENES…</span></span>
-<span><span class="co">#&gt;  5 ETH   MAO KOMO … {00061…  2004 dtp1      0.448   1846.   1019.   0.552 BENES…</span></span>
-<span><span class="co">#&gt;  6 ETH   MAO KOMO … {00061…  2005 dtp1      0.536   1885.    874.   0.464 BENES…</span></span>
-<span><span class="co">#&gt;  7 ETH   MAO KOMO … {00061…  2006 dtp1      0.617   1906.    730.   0.383 BENES…</span></span>
-<span><span class="co">#&gt;  8 ETH   MAO KOMO … {00061…  2007 dtp1      0.671   1931.    636.   0.329 BENES…</span></span>
-<span><span class="co">#&gt;  9 ETH   MAO KOMO … {00061…  2008 dtp1      0.723   1955.    542.   0.277 BENES…</span></span>
-<span><span class="co">#&gt; 10 ETH   MAO KOMO … {00061…  2009 dtp1      0.747   1958.    496.   0.253 BENES…</span></span>
-<span><span class="co">#&gt; # … with 1,217,954 more rows, 7 more variables: admin1_code &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; # A tibble: 405,988 × 17</span></span>
+<span><span class="co">#&gt;    iso3  admin2         admin2_code  year vaccine coverage pu1_final unvax_total</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 ETH   MAO KOMO SPEC… {00061F00-…  2000 dtp3       0.174     1723.       1424.</span></span>
+<span><span class="co">#&gt;  2 ETH   MAO KOMO SPEC… {00061F00-…  2001 dtp3       0.269     1760.       1287.</span></span>
+<span><span class="co">#&gt;  3 ETH   MAO KOMO SPEC… {00061F00-…  2002 dtp3       0.255     1792.       1335.</span></span>
+<span><span class="co">#&gt;  4 ETH   MAO KOMO SPEC… {00061F00-…  2003 dtp3       0.215     1807.       1419.</span></span>
+<span><span class="co">#&gt;  5 ETH   MAO KOMO SPEC… {00061F00-…  2004 dtp3       0.259     1846.       1368.</span></span>
+<span><span class="co">#&gt;  6 ETH   MAO KOMO SPEC… {00061F00-…  2005 dtp3       0.299     1885.       1320.</span></span>
+<span><span class="co">#&gt;  7 ETH   MAO KOMO SPEC… {00061F00-…  2006 dtp3       0.339     1906.       1261.</span></span>
+<span><span class="co">#&gt;  8 ETH   MAO KOMO SPEC… {00061F00-…  2007 dtp3       0.385     1931.       1188.</span></span>
+<span><span class="co">#&gt;  9 ETH   MAO KOMO SPEC… {00061F00-…  2008 dtp3       0.455     1955.       1065.</span></span>
+<span><span class="co">#&gt; 10 ETH   MAO KOMO SPEC… {00061F00-…  2009 dtp3       0.485     1958.       1007.</span></span>
+<span><span class="co">#&gt; # ℹ 405,978 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 9 more variables: pct_unvax &lt;dbl&gt;, admin1 &lt;chr&gt;, admin1_code &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   pop_model &lt;chr&gt;, pop_adjustment &lt;chr&gt;, upper &lt;dbl&gt;, lower &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   pu1_uncalib &lt;dbl&gt;, pu1_calib &lt;dbl&gt;, and abbreviated variable names</span></span>
-<span><span class="co">#&gt; #   ¹​admin2_code, ²​coverage, ³​pu1_final, ⁴​unvax_total, ⁵​pct_unvax</span></span></code></pre></div>
+<span><span class="co">#&gt; #   pu1_uncalib &lt;dbl&gt;, pu1_calib &lt;dbl&gt;</span></span></code></pre></div>
 <p><code>theme_*()</code> and <code>scale_*()</code> functions allow for standard gavi formatting and colors:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
