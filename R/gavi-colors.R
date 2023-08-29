@@ -1,42 +1,71 @@
 # first make small table with all the gavi colors in it
 
 gavi_cols <- c(
-  `org blue`       = "#005CB9",
-  `org light blue` = "#00A1DF",
-  `org green`      = "#95D600",
-  `org grey`       = "#878786",
-  `org purple`     = "#A51890",
-  `org pink`       = "#CE0F69",
-  `map blue`       = "#3D649D",
-  `map white`      = "#FFE291",
-  `map red`        = "#B03027",
-  `map blues1`     = "#C4E3D9",
-  `map blues2`     = "#385A83",
-  `blue`           = "#1A3C58",
-  `light blue`     = "#4DA9E3",
-  `purple`         = "#784AA2",
-  `green`          = "#73AA8A",
-  `pink`           = "#B57E95",
-  `yellow`         = "#F4DE7D",
-  `orange`         = "#DB9C51",
-  `red`            = "#DB655C",
-  `brown`          = "#BF9E73",
-  `turquoise`      = "#60D0D2",
-  `cholera`        = "#A25A3A",
-  `hepb`           = "#D50032",
-  `hpv`            = "#F59BBB",
-  `ipv`            = "#CEDC00",
-  `je`             = "#B288B9",
-  `mcv`            = "#0097A9",
-  `mr`             = "#005A70",
-  `mena`           = "#009639",
-  `penta`          = "#653279",
-  `pcv`            = "#0033A0",
-  `rota`           = "#D86018",
-  `yf`             = "#EAAA00",
-  `tcv`            = "#9B5638",
-  `malaria`        = "#D44237",
-  `ebola`          = "#D54D6B")
+  `org blue`         = "#005CB9",
+  `org light blue`   = "#00A1DF",
+  `org green`        = "#83BD00",
+  `org grey`         = "#878786",
+  `org purple`       = "#A51890",
+  `org pink`         = "#CE0F69",
+  `org dark green`   = "#3E9B6E",
+  `org red`          = "#E24A3F",
+  `org orange`       = "#FA7650",
+  `org yellow`       = "#F8A623",
+  `org light yellow` = "#FED141",
+  `map blue`         = "#3D649D",
+  `map green`        = "#1a9641",
+  `map turquoise`    = "#0097a9",
+  `map yellow`       = "#FFE291",
+  `map white`        = "#f7f7f7",
+  `map orange`       = "#D86018",
+  `map red`          = "#B03027",
+  `map blues1`       = "#C4E3D9",
+  `map blues2`       = "#385A83",
+  `map reds1`        = "#FFFFCC",
+  `map reds2`        = "#800026",
+  `map greens1`      = "#edf8e9",
+  `map greens2`      = "#006d2c",
+  `blue`             = "#1A3C58",
+  `light blue`       = "#4DA9E3",
+  `purple`           = "#784AA2",
+  `green`            = "#73AA8A",
+  `pink`             = "#B57E95",
+  `yellow`           = "#F4DE7D",
+  `orange`           = "#DB9C51",
+  `red`              = "#DB655C",
+  `brown`            = "#BF9E73",
+  `turquoise`        = "#60D0D2",
+  `cholera`          = "#A25A3A",
+  `hepb`             = "#D50032",
+  `hpv`              = "#F59BBB",
+  `ipv`              = "#CEDC00",
+  `je`               = "#B288B9",
+  `mcv`              = "#0097A9",
+  `mr`               = "#005A70",
+  `mena`             = "#009639",
+  `penta`            = "#653279",
+  `pcv`              = "#0033A0",
+  `rota`             = "#D86018",
+  `yf`               = "#EAAA00",
+  `tcv`              = "#9B5638",
+  `malaria`          = "#D44237",
+  `ebola`            = "#D54D6B",
+  `core`             = "#D86018",
+  `high impact`      = "#653279",
+  `fragile`          = "#009639",
+  `never gavi mics`  = "#005cb9",
+  `non gavi`         = "#00A1DF",
+  `post transition`  = "#cedc00",
+  `afro`             = "#D86018",
+  `emro`             = "#653279",
+  `euro`             = "#ce0f69",
+  `paho`             = "#009639",
+  `searo`            = "#005cb9",
+  `wpro`             = "#cedc00",
+  `hic`              = "#d86018",
+  `umic`             = "#eaaa00",
+  `lmic`             = "#95d600",
+  `lic`              = "#005cb9")
 
 #then make initial function
 #' Gavi colors
@@ -79,21 +108,25 @@ gavi_colors <- function(...) {
 # make a list of all the color palettes
 gavi_pal <- list(
   `all` = gavi_colors(),
-  `standard` = gavi_colors("blue", "light blue", "pink", "green", "yellow", "orange", "purple", "red", "turquoise"),
+  `standard` = gavi_colors("org purple", "org blue", "org light blue", "org dark green", "org green", "org light yellow", "org yellow", "org orange", "org red"),
+  `millennial` = gavi_colors("blue", "light blue", "pink", "green", "yellow", "orange", "purple", "red", "turquoise"),
   `main` = gavi_colors("org blue", "org light blue", "org green", "org grey"),
   `strategy` = gavi_colors("org purple", "org pink", "org green", "org light blue"),
   `vaccine` = gavi_colors("cholera", "ebola", "hepb", "hpv", "ipv", "je", "malaria", "mcv", "mr", "mena", "penta", "pcv", "rota", "tcv", "yf"),
-  `blues` = gavi_colors("org blue", "org light blue"),
-  `purples` = gavi_colors("org purple", "org pink"),
-  `greens` = gavi_colors("mena", "mr"),
-  `greens3` = gavi_colors("mena", "mr", "mcv"),
-  `bluegreen` = gavi_colors("org light blue", "org green"),
-  `redgreen` = gavi_colors("hepb", "mena"),
+  `who_region` = gavi_colors("afro", "emro", "euro", "paho", "searo", "wpro"),
+  `gavi_segment`= gavi_colors("core", "fragile", "high impact", "never gavi mics", "non gavi", "post transition"),
+  `world_bank` = gavi_colors("hic", "umic", "lmic", "lic"),
+  `red_green` = gavi_colors("hepb", "mena"),
   `traffic` = gavi_colors("hepb", "yf", "mena"),
   `misc1` = gavi_colors("penta", "pcv", "mena", "rota", "yf"),
   `misc2` = gavi_colors("penta", "yf"),
-  `map` = gavi_colors("map blue", "map white", "map red"),
-  `map blues` = gavi_colors("map blues1", "map blues2"))
+  `map_blue_red` = gavi_colors("map blue", "map yellow", "map red"),
+  `map_blue_red2` = gavi_colors("map blue", "map white", "map red"),
+  `map_orange_turquoise` = gavi_colors("map orange", "map white", "map turquoise"),
+  `map_green_red` = gavi_colors("map green", "map yellow", "map red"),
+  `map_blues` = gavi_colors("map blues1", "map blues2"),
+  `map_reds` = gavi_colors("map reds1", "map reds2"),
+  `map_greens` = gavi_colors("map greens1", "map greens2"))
 
 # for use inside the main functions, so will not be exported (i.e. available to use for package users)
 # two different functions, depending on if discrete or continuous
@@ -159,7 +192,7 @@ plot_gavi_colors <- function(pal_name = "all"){
 
 #' Color scales based on Gavi color palette
 #'
-#' @param palette A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, standard, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2, map, map blues.
+#' @param palette A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, standard, millennial, main, strategy, vaccine, who_region, gavi_segment, world_bank, red_green, traffic, misc1, misc2, map_blue_red, map_blue_red2, map_orange_turquoise, map_green_red, map_blues, map_reds, map_greens.
 #' @param discrete Defaults to TRUE, keep if data is discrete. If continuous, used FALSE.
 #' @param reverse Reverses order of palette.
 #' @param ... Additional arguments passed to [ggplot2::discrete_scale()] or [ggplot2::scale_fill_gradientn()], used respectively when discrete is TRUE or FALSE
@@ -197,7 +230,7 @@ scale_color_gavi <- function(palette = "standard", discrete = TRUE, reverse = FA
 
 #' Fill scales based on Gavi color palette
 #'
-#' @param palette A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, standard, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2, map, map blues.
+#' @param palette A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, standard, millennial, main, strategy, vaccine, who_region, gavi_segment, world_bank, red_green, traffic, misc1, misc2, map_blue_red, map_blue_red2, map_orange_turquoise, map_green_red, map_blues, map_reds, map_greens..
 #' @param discrete Defaults to TRUE, keep if data is discrete. If continuous, used FALSE.
 #' @param reverse Reverses order of palette.
 #' @param ... Additional arguments passed to [ggplot2::discrete_scale()] or [ggplot2::scale_fill_gradientn()], used respectively when discrete is TRUE or FALSE
