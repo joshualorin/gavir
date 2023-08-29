@@ -7,7 +7,7 @@
 scale_fill_gavi(palette = "standard", discrete = TRUE, reverse = FALSE, ...)
 }
 \arguments{
-\item{palette}{A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, standard, millennial, main, strategy, vaccine, who_region, gavi_segment, world_bank, red_green, traffic, misc1, misc2, map_blue_red, map_blue_red2, map_orange_turquoise, map_green_red, map_blues, map_reds, map_greens.}
+\item{palette}{A palette. Defaults to standard palette, but other palettes also available. Full list: all, standard, millennial, main, strategy, vaccine, who_region, gavi_segment, world_bank, red_green, traffic, misc1, misc2, map_blue_red, map_blue_red2, map_orange_turquoise, map_green_red, map_blues, map_reds, map_greens.}
 
 \item{discrete}{Defaults to TRUE, keep if data is discrete. If continuous, used FALSE.}
 
