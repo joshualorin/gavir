@@ -5,7 +5,7 @@
 * gavir now has a full-fledged website
 * Added a new helper function, `add_iso3()`. When no iso3 code is present but a country name is, this loads the synonyms file and matches on country.  
 * Added new get functions, `get_synonyms()` and `get_support()`
-* Added new color palettes for the `scale_gavi_*()` functions: "standard", "map", "map blues". Now default is "standard", a discrete palette that has pretty and distinctive color defaults.  
+* Added new color palettes for the `scale_gavi_*()` functions, including: "standard", "millenial", "who_region", "gavi_segment", "world_bank", and many for mapping (full list is available in the function help). Default is "standard", a discrete palette that uses gavi colors which are distinctive, allowing easy differentiation.  
 * Updated `get_ihme()` to follow updated folder structure, and added option to load in ihme/admin subnational file
 
 ## Bug fixes 
