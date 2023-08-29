@@ -192,7 +192,7 @@ plot_gavi_colors <- function(pal_name = "all"){
 
 #' Color scales based on Gavi color palette
 #'
-#' @param palette A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, standard, millennial, main, strategy, vaccine, who_region, gavi_segment, world_bank, red_green, traffic, misc1, misc2, map_blue_red, map_blue_red2, map_orange_turquoise, map_green_red, map_blues, map_reds, map_greens.
+#' @param palette A palette. Defaults to standard palette, but other palettes also available. Full list: all, standard, millennial, main, strategy, vaccine, who_region, gavi_segment, world_bank, red_green, traffic, misc1, misc2, map_blue_red, map_blue_red2, map_orange_turquoise, map_green_red, map_blues, map_reds, map_greens.
 #' @param discrete Defaults to TRUE, keep if data is discrete. If continuous, used FALSE.
 #' @param reverse Reverses order of palette.
 #' @param ... Additional arguments passed to [ggplot2::discrete_scale()] or [ggplot2::scale_fill_gradientn()], used respectively when discrete is TRUE or FALSE
@@ -230,7 +230,7 @@ scale_color_gavi <- function(palette = "standard", discrete = TRUE, reverse = FA
 
 #' Fill scales based on Gavi color palette
 #'
-#' @param palette A palette. Defaults to all 21 Gavi colors, but other versions can be used. Full list: all, standard, millennial, main, strategy, vaccine, who_region, gavi_segment, world_bank, red_green, traffic, misc1, misc2, map_blue_red, map_blue_red2, map_orange_turquoise, map_green_red, map_blues, map_reds, map_greens.
+#' @param palette A palette. Defaults to standard palette, but other palettes also available. Full list: all, standard, millennial, main, strategy, vaccine, who_region, gavi_segment, world_bank, red_green, traffic, misc1, misc2, map_blue_red, map_blue_red2, map_orange_turquoise, map_green_red, map_blues, map_reds, map_greens.
 #' @param discrete Defaults to TRUE, keep if data is discrete. If continuous, used FALSE.
 #' @param reverse Reverses order of palette.
 #' @param ... Additional arguments passed to [ggplot2::discrete_scale()] or [ggplot2::scale_fill_gradientn()], used respectively when discrete is TRUE or FALSE
