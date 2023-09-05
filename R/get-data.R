@@ -361,6 +361,45 @@ get_ihme <- function(version_date, source = "subnational", aggregation = "polio"
 }
 
 
+#' Retrieve WorldPop data
+#'
+#' Retrieves WorldPop data from the shared drive.
+#'
+#' @param version_date A string in the format of "yyyy-mm", corresponding to the version of the WorldPop file you wish to load.
+#' @param source A string used to determine which WorldPop file to load. Options are: "pop" and "erg_district", "erg_national", "dhf_district", "dhf_national".
+#'
+#' @return a WorldPop data frame
+#' @export
+#'
+#' @examples
+#'
+#' # defaults to population dataset
+#' get_worldpop("2023-07")
+#'
+#' # for ERG and distance to facility data sets, indicate if it is district or national level
+#' get_worldpop("2023-07", source = "erg_district")
+#'
+get_worldpop <- function(version_date, source = "pop"){
+
+  root <- set_root(datasets = T)
+
+  if(source=="pop"){
+    path <- file.path(root, "Demographics", "WorldPop", version_date, "outputs", paste0("worldpop_", version_date, ".csv"))
+  }else if(stringr::str_detect(source, "erg")){
+    path <- file.path(root, "Coverage", "WorldPop ERG", version_date, "outputs", paste0(source, "_data_", version_date, ".csv"))
+  }else if(stringr::str_detect(source, "dhf")){
+    path <- file.path(root, "Coverage", "WorldPop distance to HF", "all_countries", version_date, "outputs", paste0(source, "_data_", version_date, ".csv"))
+  }
+
+  source_name <- if(source == "pop"){"Population"}else if(stringr::str_detect(source, "erg")){paste0("ERG ", stringr::str_sub(source, 5))}else if(stringr::str_detect(source, "dhf")){paste0("DHF ", stringr::str_sub(source, 5))}
+  msg <- paste0("Reading in WorldPop ", source_name, " file dated: ", version_date)
+
+  message(msg)
+  readr::read_csv(path)
+
+}
+
+
 #' Retrieve Shape data
 #'
 #' Retrieves Shape data from the shared drive.
