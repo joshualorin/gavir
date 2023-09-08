@@ -361,6 +361,38 @@ get_ihme <- function(version_date, source = "subnational", aggregation = "polio"
 }
 
 
+#' Retrieve WPP data
+#'
+#' @param version_date A string in the format of "yyyy", corresponding to the WPP version you wish to load.
+#' @param source A string used to determine which WPP file to load. Options are: "surviving_infants", "demographics", and "total_pop".
+#'
+#' @return a WPP data frame or list (if using the demographics file)
+#' @export
+#'
+#' @examples
+#' get_wpp("2022")
+#' get_wpp("2022", "demographics")
+#'
+get_wpp <- function(version_date, source = "surviving_infants"){
+
+  if(source=="surviving_infants"){
+    filename <- paste0(source, "_wpp", version_date, ".rds")
+  }else if(source=="demographics"){
+      filename <- paste0(source, "_wpp", version_date, ".rds")
+  }else if(source=="total_pop"){
+    filename <- paste0("wpp", version_date, ".rds")
+  }
+
+  path <- file.path(set_root(datasets = T), "Demographics", "UNPD", paste0("wpp", version_date), "outputs", filename)
+  msg <- paste0("Reading in ", stringr::str_to_title(stringr::str_replace(source, "_", " ")), " from WPP ", version_date)
+
+  message(msg)
+  readRDS(path)
+
+
+}
+
+
 #' Retrieve WorldPop data
 #'
 #' Retrieves WorldPop data from the shared drive.
