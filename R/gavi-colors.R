@@ -128,6 +128,32 @@ gavi_pal <- list(
   `map_reds` = gavi_colors("map reds1", "map reds2"),
   `map_greens` = gavi_colors("map greens1", "map greens2"))
 
+
+# function for calling entire palette
+
+
+#' Gavi palettes
+#'
+#' @param pal_name A Gavi palette. defaults to all colors. Full list of available palettes: all, standard, millennial, main, strategy, vaccine, who_region, gavi_segment, world_bank, red_green, traffic, misc1, misc2, map_blue_red, map_blue_red2, map_orange_turquoise, map_green_red, map_blues, map_reds, map_greens
+#' @param reverse Reverses order of the palette.
+#' @param unnamed Returns an unnamed vector if TRUE.
+#'
+#' @return A named character vector with all colors and hexcode in the palette.
+#' @export
+#'
+#' @examples
+#' gavi_palette()
+#' gavi_palette("standard")
+#'
+
+
+gavi_palette <- function(pal_name = "all", reverse = FALSE, unnamed = FALSE){
+  pal <- gavi_pal[[pal_name]]
+  if (reverse) pal <- rev(pal)
+  if (unnamed) pal <- as.vector(pal)
+  return(pal)
+}
+
 # for use inside the main functions, so will not be exported (i.e. available to use for package users)
 # two different functions, depending on if discrete or continuous
 palette_continuous <- function(palette = "all", reverse = FALSE, ...) {
@@ -150,8 +176,7 @@ palette_discrete <- function(palette = "all", reverse = FALSE){
 #'
 #' Helper function to assist in choosing a Gavi color or palette.
 #'
-#' @param pal_name defaults to all colors. Can choose from a list of available palettes:
-#' all, standard, main, strategy, vaccine, blues, purples, greens, greens3, bluegreen, redgreen, traffic, misc1, misc2, map, map blues
+#' @param pal_name A Gavi palette. Defaults to all colors. Full list of available palettes: all, standard, millennial, main, strategy, vaccine, who_region, gavi_segment, world_bank, red_green, traffic, misc1, misc2, map_blue_red, map_blue_red2, map_orange_turquoise, map_green_red, map_blues, map_reds, map_greens
 #'
 #' @export
 #'
